@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<!-- this block is for the category.html which extends index.html -->
+<!-- it adds 'breadcrumbs' for which category you're veiwing -->
+{% block categories %}{% endblock %}
+
+<div class="m-2 p-2 mb-5">
+    <div class="container">
+        <div class="row main-bg-colour pl-3 pt-3 no-gutters border">
+
+            {% for book in books%}
+            <div class="col-lg-4 col-md-6 pb-3 pr-3">
+                <div class="card p-2">
+                    <div class="d-flex flex-row pb-2"><a href="{{url_for('main.bookinfo', bookid=book.id)}}"><img
+                                class="rounded" src="{{url_for('static', filename='img/'+book.image)}}" width="120"></a>
+                        <div class="d-flex flex-column ml-2"><span><a
+                                    href="{{url_for('main.bookinfo', bookid=book.id)}}">{{book.name}}</a></span><span
+                                class="text-black-50"><i class="fs-6 fst-italic">{{book.author}}</i></span>
+                            <span class="ratings">
+                                {% for i in range(book.rating) %}
+                                <i class="fa fa-star checked"></i>
+                                {% endfor %}
+
+                                {% for i in range(5-book.rating) %}
+                                <i class="fa fa-star"></i>
+                                {% endfor %}</span>
+
+                            <span>${{book.price}} - was<i class="text-warning"> <del>${{book.price +
+                                        5}}</del></i></span>
+                        </div>
+                    </div>
+                    <h6 class="border-top pt-2 fw-light border-bottom border-success pb-2">{{book.short_desc}}</h6>
+
+
+
+                    <div class="d-flex justify-content-between mt-3">
+
+                        <span class="text-secondary">Purchased {{book.num_purchased}} times</span>
+
+                        {% if book.available == True %}
+                        <span>
+                            <form action="{{ url_for('main.order') }}">
+                                <input type="hidden" id="book_id" name="book_id" value="{{ book.id }}">
+                                <input class="btn-sm btn-secondary" type="submit" value="Add to Basket 🛒">
+                            </form>
+                        </span>
+
+
+                        {% else %}
+
+                        <span class="text-danger" role="alert">Sorry! Out of stock
+                        </span>
+                        {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

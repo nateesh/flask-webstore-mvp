@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+
+{% block categories %}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mb-n2">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{ url_for('main.index') }}">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{category.name}}</li>
+    </ol>
+</nav>
+{% endblock %}

@@ -1,0 +1,78 @@
+.checked {
+    color: orange;
+}
+
+.rounded-corner {
+    border-radius: 2% 20% 2% 20%;
+}
+
+a:link,
+a:visited {
+    color: #329f00;
+}
+
+.nav-front {
+    z-index: 1100;
+}
+
+/* alternate background */
+.main-bg-colour {
+    background:
+        radial-gradient(circle at 0% 50%, rgba(96, 16, 48, 0) 9px, rgba(55, 89, 0) 10px, rgba(96, 16, 48, 0) 11px) 0px 10px,
+        radial-gradient(at 100% 100%, rgba(96, 16, 48, 0) 9px, rgb(55, 89, 0) 10px, rgba(96, 16, 48, 0) 11px), rgba(50, 85, 6, 0.727);
+    background-size: 20px 20px;
+}
+
+.main-bg-colour-navbar {
+    background-color: rgba(96, 16, 48, 0);
+    opacity: 0.8;
+    background-image: radial-gradient(#64605a00 0.5px, transparent 0.5px), radial-gradient(#64605a8e 0.5px, rgb(49, 85, 6) 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+}
+
+.product-image-bg {
+    background-color: #d5d5d500;
+    opacity: 0.8;
+    background-image: radial-gradient(#406200a5 0.9500000000000001px, transparent 0.9500000000000001px), radial-gradient(#40620097 0.9500000000000001px, #d5d5d500 0.9500000000000001px);
+    background-size: 38px 38px;
+    background-position: 0 0, 19px 19px;
+    background-clip: content-box, padding-box;
+}
+
+/* card background */
+
+.main-bg-colour-cards1 {
+    background-color: rgba(207, 10, 10, 0.727);
+}
+
+
+/* product details page css classes */
+
+.image-rounded-corner {
+    border-radius: 3% 3% 3% 3%;
+}
+
+.centred-text {
+    text-align: center;
+}
+
+.product-body {
+    margin-top: 40px;
+    margin-bottom: 100px;
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.product-grid-padding {
+    margin: 10px;
+    padding: 10px;
+}
+
+.product-h1 {
+    font-size: 29px;
+}
+
+.product-h2 {
+    font-size: 16px;
+}

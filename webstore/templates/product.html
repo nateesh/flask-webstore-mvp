@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<div class="m-2 p-2 mb-5">
+    <div class="container">
+        <div class="row mb-3 main-bg-colour pl-3 pt-3 no-gutters">
+            <div class="col-md-7 pb-3 pr-3">
+                <div class="p-3 border bg-light rounded">
+                    <h1 class="product-h1 centred-text border-bottom border-success pb-2">{{book.name}}</h1>
+                    <h2 class="product-h2 centred-text"><span style="font-size: 15px">by </span>{{book.author}}</h2>
+                    <div class="centred-text product-image-bg"><img class="image-rounded-corner img-fluid border border-secondary"
+                            src="{{url_for('static', filename='img/'+book.image)}}" width="250"> </div>
+                    <p class="mt-4 p-2 bg-white border-top border-bottom border-success">{{book.short_desc}}</p>
+                    <p class="ratings"><span>Ratings: </span><span class="ratings">
+                            {% for i in range(book.rating) %}
+                            <i class="fa fa-star checked"></i>
+                            {% endfor %}
+                            {% for i in range(5-book.rating) %}
+                            <i class="fa fa-star"></i>
+                            {% endfor %}</span><span>({{book.num_ratings}})</span>
+
+                        <button type="button" class="btn btn-secondary pull-right" data-bs-toggle="popover"
+                            data-bs-placement="right" data-bs-custom-class="custom-popover"
+                            data-bs-content="Review function under development.">
+                            Review Book
+                        </button>
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-5 pb-3 pr-3">
+                <div class="p-3 border bg-light rounded">
+                    <p class="centred-text"> <span class="h6 text-black-50">usually </span><span
+                            class="h4 text-black-50 text-decoration-underline"><del>{{book.price + 5}}</del></span>
+                    <p class="centred-text">buy it now for <span class="h2 ">{{book.price}}</span><span
+                            class="h4">!</span></p>
+                    </p> <!-- add to card -->
+
+                    <!-- add to basket button -->
+                    <div class="centred-text border border-warning rounded p-3 bg-white">
+
+                        {% if book.available == True %}
+                        <form action="{{ url_for('main.order') }}">
+                            <input type="hidden" id="book_id" name="book_id" value="{{ book.id }}">
+                            <input class="btn-lg btn-warning" type="submit" value="Add to Basket 🛒">
+                        </form>
+                        {% else %}
+                        <input class="btn-lg btn-light" disabled type="submit" value="Add to Basket 🛒">
+                        {% endif %}
+
+                    </div>
+
+
+                    {% if book.available == True %}
+                    <div class="alert alert-success mt-4 mb-4 centred-text" role="alert">This item is in stock! Ships
+                        within 1-2 days.</div>
+                    {% else %}
+                    <div class="alert alert-danger mt-4 mb-4 centred-text" role="alert">Sorry, this item is out of
+                        stock!</div>
+                    {% endif %}
+
+                    <p>Published: <b>{{book.date_published}}</b></p>
+                    <p>Publisher: <b>{{book.publisher}}</b></p>
+                    <p>Number Of Pages: <b>{{book.pages}}</b></p>
+                    <p>ISBN: <b>{{book.isbn}}</b></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row p-2 border-top border-bottom border-success bg-light ml-1 mr-1">
+            <div class="p-2">
+                <p class="font-weight-bold">{{book.name}} <span class="fst-italic" style="font-size: 12px">by </span>{{book.author}}</p>
+                <p>{{book.description | safe}}</p>
+            </div><!-- Booktopia (2022)  -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}

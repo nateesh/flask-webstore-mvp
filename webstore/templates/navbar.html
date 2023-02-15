@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-dark main-bg-colour-navbar nav-front">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">
+            <img src="{{url_for('static', filename='../static/img/Logo.png')}}" width="150" height="50"
+                class="d-inline-block align-top rounded-corner" alt=""></a>
+        <a class="navbar-brand" href="index.html"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="nav navbar-nav">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('main.index') }}">Home</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-expanded="false">
+                        Categories
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% for cat in cats%}
+                        <li><a class="dropdown-item" href="{{url_for('main.category', cat_id=cat.id)}}">{{ cat.name
+                                }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% if order.books|length == 0 %}
+                <a class="nav-link active" href="{{ url_for('main.order') }}" {% if page=='orders' %}class="active" {%
+                    endif %}>Shopping Cart ({{ order.books|length }})</a>
+                {% else %}
+                <a class="nav-link active" href="{{ url_for('main.order') }}" {% if page=='orders' %}class="active" {%
+                    endif %}>Shopping Cart ({{ order.books|length }}) 🛒</a>
+                {% endif %}
+
+
+            </ul>
+            <div class="ml-auto">
+                <form class="form-inline my-2 my-lg-0" action="{{ url_for('main.search') }}">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</nav>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert alert-primary justify-content-center alert-dismissible fade show" role="alert" data-toggle="modal" data-target="#myModal" onclick="setTimeout(function(){$('#myModal').modal('hide')},3000);"">
+
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}

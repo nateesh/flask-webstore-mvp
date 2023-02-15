@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% import "bootstrap4/form.html" as wtf %}
+{% from "bootstrap4/form.html" import render_form %}
+
+{% block main %}
+<!-- display contents of user basket -->
+
+
+<div class="m-2 p-2 mb-5">
+    <div class="container">
+        <div class="row main-bg-colour pl-3 pt-3 no-gutters">
+            <div class="col-md-7 pb-3 pr-3">
+                <div class="p-3 border bg-light rounded">
+                    <div class="row">
+                        <div class="col-md-12 order-md-2 mb-4">
+                            <h4 class="d-flex justify-content-between align-items-center mb-3 mt-2 p-2 bg-white border-top border-bottom border-success"
+                                class="">
+                                <span class="text-muted">Your Basket</span>
+                                <!-- <span class="badge badge-secondary badge-pill">{{ order.books|length }}</span> -->
+                                {% if order.books|length > 1 %}
+                                <span class="badge badge-success badge-pill">{{ order.books|length }} Items</span>
+                                {% elif order.books|length == 1 %}
+                                <span class="badge badge-success badge-pill">{{ order.books|length }} Item</span>
+                                {% else %}
+                                <span class="badge badge-secondary badge-pill">Basket Empty</span>
+                                {% endif %}
+                            </h4>
+
+                            <ul class="list-group mb-3">
+
+                                {% for book in order.books %}
+
+
+                                <li class="list-group-item d-flex lh-condensed">
+                                    <div class="p-2 flex-grow-1">
+                                        <a href="{{url_for('main.bookinfo', bookid=book.id)}}">
+                                            <h6 class="my-0"><span></span>{{book.name}}</h6>
+
+                                        </a>
+                                        <small class="text-muted">{{book.author}}</small>
+
+                                    </div>
+
+                                    <div class="p-2">
+                                        <span class="text-muted d-flex">${{book.price}}</span>
+                                    </div>
+
+                                    <div class="p-2">
+                                        <form method="POST" action="{{url_for('main.deleteorderitem')}}">
+                                            <input type="hidden" id="id" name="id" value="{{book.id}}">
+                                            <input type="submit" value="x" class="btn btn-warning mb-3">
+                                        </form>
+                                    </div>
+
+
+                                </li>
+                                {% endfor %}
+                                {% if order.books|length == 0 %}
+                                <li class="list-group-item d-flex justify-content-center ">
+
+                                    <!-- <div class="alert alert-warning" role="alert">
+                                        <strong>Your basket is empty!</strong>
+
+                                    </div> -->
+                                    <div class="alert alert-warning mt-4 mb-4 centred-text"
+                                        role="alert">Your basket is empty!</div>
+                                </li>
+                                {% endif %}
+
+
+
+
+                                <li class="list-group-item d-flex justify-content-between border border-top">
+                                    <span>Total</span>
+                                    <strong>{{ "$%.2f"|format(totalprice) }}</strong>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-md-5 pb-3 pr-3">
+
+                <div class="p-3 border bg-light rounded">
+                    <p class="mt-2 p-2 bg-white border-top border-bottom border-success">
+                        Checkout
+                    </p>
+                    <div class="button-warning">{{wtf.render_form(form)}}</div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
